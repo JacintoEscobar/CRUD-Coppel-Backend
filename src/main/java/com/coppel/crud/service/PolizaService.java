@@ -13,4 +13,8 @@ public class PolizaService {
     public void actualizarPoliza(int idPoliza, Poliza poliza) {
         polizaRepository.actualizarPoliza(idPoliza, poliza.getEmpleado().getIdEmpleado(), poliza.getInventario().getSKU(), poliza.getCantidad(), poliza.getFecha());
     }
+
+    public void crearPoliza(Poliza poliza) {
+        polizaRepository.crearPoliza(poliza.getEmpleado().getIdEmpleado(), poliza.getInventario().getSKU(), poliza.getCantidad(), poliza.getFecha());
+    }
 }
