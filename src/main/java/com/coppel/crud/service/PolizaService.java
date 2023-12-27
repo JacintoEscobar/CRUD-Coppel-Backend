@@ -10,6 +10,13 @@ public class PolizaService {
     @Autowired
     private PolizaRepository polizaRepository;
 
+    public Poliza consultarPolizaById(int idPoliza) {
+        if (polizaRepository.findById(idPoliza).isEmpty()) {
+            return null;
+        }
+        return polizaRepository.findById(idPoliza).get();
+    }
+
     public void actualizarPoliza(int idPoliza, Poliza poliza) {
         polizaRepository.actualizarPoliza(idPoliza, poliza.getEmpleado().getIdEmpleado(), poliza.getInventario().getSKU(), poliza.getCantidad(), poliza.getFecha());
     }
