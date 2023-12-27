@@ -12,4 +12,7 @@ public interface PolizaRepository extends JpaRepository<Poliza, Integer> {
 
     @Procedure("insert_poliza")
     void crearPoliza(int eg, String s, int ca, String f);
+
+    @Procedure
+    void eliminarPoliza(int idp);
 }

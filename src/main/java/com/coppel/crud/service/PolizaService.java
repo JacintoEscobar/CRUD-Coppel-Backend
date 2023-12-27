@@ -17,4 +17,8 @@ public class PolizaService {
     public void crearPoliza(Poliza poliza) {
         polizaRepository.crearPoliza(poliza.getEmpleado().getIdEmpleado(), poliza.getInventario().getSKU(), poliza.getCantidad(), poliza.getFecha());
     }
+
+    public void eliminarPoliza(int idPoliza) {
+        polizaRepository.eliminarPoliza(idPoliza);
+    }
 }

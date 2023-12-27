@@ -36,4 +36,14 @@ public class PolizaController {
             return new ResponseEntity<>(new Error(RespuestaCodigo.FAILURE, "Ha ocurrido un error al intentar actualizar la póliza"), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @DeleteMapping("/eliminar/{id_poliza}")
+    public ResponseEntity<?> eliminarPoliza(@PathVariable(required = true, name = "id_poliza") int idPoliza) {
+        try {
+            polizaService.eliminarPoliza(idPoliza);
+            return new ResponseEntity<>(new Respuesta(RespuestaCodigo.OK, "Se eliminó correctamente la poliza " + idPoliza), HttpStatus.OK);
+        } catch (Exception ex) {
+            return new ResponseEntity<>(new Error(RespuestaCodigo.FAILURE, "Ha ocurrido un error al intentar eliminar la póliza"), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }
