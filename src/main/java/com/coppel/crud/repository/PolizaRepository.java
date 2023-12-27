@@ -9,4 +9,7 @@ import org.springframework.stereotype.Repository;
 public interface PolizaRepository extends JpaRepository<Poliza, Integer> {
     @Procedure
     void actualizarPoliza(int idp, int eg, String s, int ca, String f);
+
+    @Procedure("insert_poliza")
+    void crearPoliza(int eg, String s, int ca, String f);
 }

@@ -2,6 +2,7 @@ package com.coppel.crud.controller;
 
 import com.coppel.crud.model.Poliza;
 import com.coppel.crud.respuesta.Respuesta;
+import com.coppel.crud.respuesta.RespuestaCodigo;
 import com.coppel.crud.respuesta.error.Error;
 import com.coppel.crud.service.PolizaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,13 +17,23 @@ public class PolizaController {
     @Autowired
     private PolizaService polizaService;
 
+    @PostMapping("/crear")
+    public ResponseEntity<?> crearPoliza(@RequestBody(required = true) Poliza poliza) {
+        try {
+            polizaService.crearPoliza(poliza);
+            return new ResponseEntity<>(new Respuesta(RespuestaCodigo.OK, poliza), HttpStatus.OK);
+        } catch (Exception ex) {
+            return new ResponseEntity<>(new Error(RespuestaCodigo.FAILURE, "Ha ocurrido un error en los grabados de póliza"), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @PutMapping("/actualizar/{id_poliza}")
     public ResponseEntity<?> actualizarPoliza(@PathVariable(required = true, name = "id_poliza") int idPoliza, @RequestBody(required = true) Poliza poliza) {
         try {
             polizaService.actualizarPoliza(idPoliza, poliza);
-            return new ResponseEntity<>(new Respuesta("Se actualizó correctamente la poliza " + idPoliza), HttpStatus.OK);
+            return new ResponseEntity<>(new Respuesta(RespuestaCodigo.OK, "Se actualizó correctamente la poliza " + idPoliza), HttpStatus.OK);
         } catch (Exception ex) {
-            return new ResponseEntity<>(new Error("FAILURE", "Ha ocurrido un error al intentar actualizar la póliza"), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(new Error(RespuestaCodigo.FAILURE, "Ha ocurrido un error al intentar actualizar la póliza"), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

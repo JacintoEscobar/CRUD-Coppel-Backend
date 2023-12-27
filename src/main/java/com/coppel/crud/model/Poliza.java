@@ -9,6 +9,7 @@ import lombok.Data;
 @Data
 @Table(name = "poliza")
 @NamedStoredProcedureQuery(name = "Poliza.actualizarPoliza", procedureName = "update_poliza", parameters = {@StoredProcedureParameter(mode = ParameterMode.IN, name = "idp", type = Integer.class), @StoredProcedureParameter(mode = ParameterMode.IN, name = "eg", type = Integer.class), @StoredProcedureParameter(mode = ParameterMode.IN, name = "s", type = String.class), @StoredProcedureParameter(mode = ParameterMode.IN, name = "ca", type = Integer.class), @StoredProcedureParameter(mode = ParameterMode.IN, name = "f", type = String.class)})
+@NamedStoredProcedureQuery(name = "Poliza.crearPoliza", procedureName = "insert_poliza", parameters = {@StoredProcedureParameter(mode = ParameterMode.IN, name = "eg", type = Integer.class), @StoredProcedureParameter(mode = ParameterMode.IN, name = "s", type = String.class), @StoredProcedureParameter(mode = ParameterMode.IN, name = "ca", type = Integer.class), @StoredProcedureParameter(mode = ParameterMode.IN, name = "f", type = String.class)})
 public class Poliza {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
