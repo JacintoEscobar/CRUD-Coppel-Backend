@@ -28,4 +28,8 @@ public class PolizaService {
     public void eliminarPoliza(int idPoliza) {
         polizaRepository.eliminarPoliza(idPoliza);
     }
+
+    public Integer getLastPolizaId() {
+        return polizaRepository.getLastPolizaId();
+    }
 }

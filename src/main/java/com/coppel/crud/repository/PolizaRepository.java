@@ -2,6 +2,7 @@ package com.coppel.crud.repository;
 
 import com.coppel.crud.model.Poliza;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.stereotype.Repository;
 
@@ -15,4 +16,7 @@ public interface PolizaRepository extends JpaRepository<Poliza, Integer> {
 
     @Procedure
     void eliminarPoliza(int idp);
+
+    @Query(value = "SELECT get_last_poliza_id()", nativeQuery = true)
+    Integer getLastPolizaId();
 }

@@ -8,9 +8,25 @@ import lombok.Data;
 @Entity
 @Data
 @Table(name = "poliza")
-@NamedStoredProcedureQuery(name = "Poliza.actualizarPoliza", procedureName = "update_poliza", parameters = {@StoredProcedureParameter(mode = ParameterMode.IN, name = "idp", type = Integer.class), @StoredProcedureParameter(mode = ParameterMode.IN, name = "eg", type = Integer.class), @StoredProcedureParameter(mode = ParameterMode.IN, name = "s", type = String.class), @StoredProcedureParameter(mode = ParameterMode.IN, name = "ca", type = Integer.class), @StoredProcedureParameter(mode = ParameterMode.IN, name = "f", type = String.class)})
-@NamedStoredProcedureQuery(name = "Poliza.crearPoliza", procedureName = "insert_poliza", parameters = {@StoredProcedureParameter(mode = ParameterMode.IN, name = "eg", type = Integer.class), @StoredProcedureParameter(mode = ParameterMode.IN, name = "s", type = String.class), @StoredProcedureParameter(mode = ParameterMode.IN, name = "ca", type = Integer.class), @StoredProcedureParameter(mode = ParameterMode.IN, name = "f", type = String.class)})
-@NamedStoredProcedureQuery(name = "Poliza.eliminarPoliza", procedureName = "delete_poliza", parameters = {@StoredProcedureParameter(mode = ParameterMode.IN, name = "idp", type = Integer.class)})
+@NamedStoredProcedureQueries({
+        @NamedStoredProcedureQuery(name = "Poliza.actualizarPoliza", procedureName = "update_poliza", parameters = {
+                @StoredProcedureParameter(mode = ParameterMode.IN, name = "idp", type = Integer.class),
+                @StoredProcedureParameter(mode = ParameterMode.IN, name = "eg", type = Integer.class),
+                @StoredProcedureParameter(mode = ParameterMode.IN, name = "s", type = String.class),
+                @StoredProcedureParameter(mode = ParameterMode.IN, name = "ca", type = Integer.class),
+                @StoredProcedureParameter(mode = ParameterMode.IN, name = "f", type = String.class)
+        }),
+        @NamedStoredProcedureQuery(name = "Poliza.crearPoliza", procedureName = "insert_poliza", parameters = {
+                @StoredProcedureParameter(mode = ParameterMode.IN, name = "eg", type = Integer.class),
+                @StoredProcedureParameter(mode = ParameterMode.IN, name = "s", type = String.class),
+                @StoredProcedureParameter(mode = ParameterMode.IN, name = "ca", type = Integer.class),
+                @StoredProcedureParameter(mode = ParameterMode.IN, name = "f", type = String.class)
+        }),
+        @NamedStoredProcedureQuery(name = "Poliza.eliminarPoliza", procedureName = "delete_poliza", parameters = {
+                @StoredProcedureParameter(mode = ParameterMode.IN, name = "idp", type = Integer.class)
+        }),
+        @NamedStoredProcedureQuery(name = "Poliza.getLastPolizaId", procedureName = "get_last_poliza_id")
+})
 public class Poliza {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

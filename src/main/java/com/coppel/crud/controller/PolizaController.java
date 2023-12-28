@@ -24,9 +24,9 @@ public class PolizaController {
         try {
             Poliza poliza = polizaService.consultarPolizaById(idPoliza);
 
-            HashMap<String, String> polizaInfo = new HashMap<>();
-            polizaInfo.put("idPoliza", String.valueOf(poliza.getIdPoliza()));
-            polizaInfo.put("cantidad", String.valueOf(poliza.getCantidad()));
+            HashMap<String, Integer> polizaInfo = new HashMap<>();
+            polizaInfo.put("idPoliza", poliza.getIdPoliza());
+            polizaInfo.put("cantidad", poliza.getCantidad());
 
             HashMap<String, String> empleadoInfo = new HashMap<>();
             empleadoInfo.put("nombre", poliza.getEmpleado().getNombre());
@@ -51,9 +51,29 @@ public class PolizaController {
     public ResponseEntity<?> crearPoliza(@RequestBody(required = true) Poliza poliza) {
         try {
             polizaService.crearPoliza(poliza);
-            return new ResponseEntity<>(new Respuesta(RespuestaCodigo.OK, poliza), HttpStatus.OK);
+
+            Poliza ultimaPoliza = polizaService.consultarPolizaById(polizaService.getLastPolizaId());
+
+            HashMap<String, Integer> polizaInfo = new HashMap<>();
+            polizaInfo.put("idPoliza", ultimaPoliza.getIdPoliza());
+            polizaInfo.put("cantidad", ultimaPoliza.getCantidad());
+
+            HashMap<String, String> empleadoInfo = new HashMap<>();
+            empleadoInfo.put("nombre", ultimaPoliza.getEmpleado().getNombre());
+            empleadoInfo.put("apellido", ultimaPoliza.getEmpleado().getApellido());
+
+            HashMap<String, String> detalleArticulo = new HashMap<>();
+            detalleArticulo.put("sku", ultimaPoliza.getInventario().getSKU());
+            detalleArticulo.put("nombre", ultimaPoliza.getInventario().getNombre());
+
+            HashMap<String, HashMap> respuesta = new HashMap<>();
+            respuesta.put("poliza", polizaInfo);
+            respuesta.put("empleado", empleadoInfo);
+            respuesta.put("detalleArticulo", detalleArticulo);
+
+            return new ResponseEntity<>(new Respuesta(RespuestaCodigo.OK, respuesta), HttpStatus.OK);
         } catch (Exception ex) {
-            return new ResponseEntity<>(new Error(RespuestaCodigo.FAILURE, "Ha ocurrido un error en los grabados de póliza"), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(new Error(RespuestaCodigo.FAILURE, ex.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
