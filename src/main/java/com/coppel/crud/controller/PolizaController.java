@@ -5,6 +5,8 @@ import com.coppel.crud.respuesta.Respuesta;
 import com.coppel.crud.respuesta.RespuestaCodigo;
 import com.coppel.crud.service.PolizaService;
 import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +20,7 @@ import java.util.List;
 @CrossOrigin
 @RequestMapping(value = "/poliza")
 public class PolizaController {
+    private static final Logger logger = LoggerFactory.getLogger(PolizaController.class);
     @Autowired
     private PolizaService polizaService;
 
@@ -40,6 +43,7 @@ public class PolizaController {
 
             return new ResponseEntity<>(new Respuesta(RespuestaCodigo.OK, crearRespuestaPoliza(polizaExistente)), HttpStatus.OK);
         } catch (Exception ex) {
+            logger.error("Ocurrió un error al intentar consultar la póliza espeficada");
             return new ResponseEntity<>(new Respuesta(RespuestaCodigo.FAILURE, "Ha ocurrido un error al consultar la póliza"), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -59,6 +63,7 @@ public class PolizaController {
             Poliza polizaRecienCreada = polizaService.consultarPolizaById(polizaService.getLastPolizaId());
             return new ResponseEntity<>(new Respuesta(RespuestaCodigo.OK, crearRespuestaPoliza(polizaRecienCreada)), HttpStatus.OK);
         } catch (Exception ex) {
+            logger.error("Ocurrió un error al intentar crear la póliza");
             return new ResponseEntity<>(new Respuesta(RespuestaCodigo.FAILURE, "Ha ocurrido un error en los grabados de póliza"), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -82,6 +87,7 @@ public class PolizaController {
             polizaService.actualizarPoliza(idPoliza, polizaModificada);
             return new ResponseEntity<>(new Respuesta(RespuestaCodigo.OK, "Se actualizó correctamente la poliza " + idPoliza), HttpStatus.OK);
         } catch (Exception ex) {
+            logger.error("Ocurrió un error al intentar actualizar la póliza");
             return new ResponseEntity<>(new Respuesta(RespuestaCodigo.FAILURE, "Ha ocurrido un error al intentar actualizar la póliza"), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -97,6 +103,7 @@ public class PolizaController {
             polizaService.eliminarPoliza(idPoliza);
             return new ResponseEntity<>(new Respuesta(RespuestaCodigo.OK, "Se eliminó correctamente la poliza " + idPoliza), HttpStatus.OK);
         } catch (Exception ex) {
+            logger.error("Ocurrió un error al intentar eliminar la póliza");
             return new ResponseEntity<>(new Respuesta(RespuestaCodigo.FAILURE, "Ha ocurrido un error al intentar eliminar la póliza"), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

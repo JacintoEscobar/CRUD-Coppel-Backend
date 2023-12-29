@@ -5,6 +5,8 @@ import com.coppel.crud.respuesta.Respuesta;
 import com.coppel.crud.respuesta.RespuestaCodigo;
 import com.coppel.crud.service.EmpleadoService;
 import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +20,7 @@ import java.util.List;
 @CrossOrigin
 @RequestMapping("/empleado")
 public class EmpleadoController {
+    private static final Logger logger = LoggerFactory.getLogger(EmpleadoController.class);
     @Autowired
     private EmpleadoService empleadoService;
 
@@ -43,6 +46,7 @@ public class EmpleadoController {
             empleadoService.crearEmpleado(nuevoEmpleado);
             return new ResponseEntity<>(new Respuesta(RespuestaCodigo.OK, nuevoEmpleado), HttpStatus.CREATED);
         } catch (Exception ex) {
+            logger.error("Ocurrió un error al intentar crear el empleado");
             return new ResponseEntity<>(new Respuesta(RespuestaCodigo.FAILURE, "Ha ocurrido un error en los grabados del empleado"), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -60,6 +64,7 @@ public class EmpleadoController {
             empleadoService.actualizarEmpleado(empleadoModificado);
             return new ResponseEntity<>(new Respuesta(RespuestaCodigo.OK, empleadoModificado), HttpStatus.OK);
         } catch (Exception ex) {
+            logger.error("Ocurrió un error al intentar actualizar el empleado");
             return new ResponseEntity<>(new Respuesta(RespuestaCodigo.FAILURE, "Ha ocurrido un error al intentar actualizar el empleado"), HttpStatus.BAD_REQUEST);
         }
     }
