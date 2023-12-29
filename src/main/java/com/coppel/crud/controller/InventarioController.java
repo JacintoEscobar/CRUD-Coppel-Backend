@@ -6,6 +6,7 @@ import com.coppel.crud.respuesta.RespuestaCodigo;
 import com.coppel.crud.service.InventarioService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -43,7 +44,10 @@ public class InventarioController {
             inventarioService.crearInventario(nuevoInventario);
             return new ResponseEntity<>(new Respuesta(RespuestaCodigo.OK, nuevoInventario), HttpStatus.CREATED);
         } catch (Exception ex) {
-            return new ResponseEntity<>(new Respuesta(RespuestaCodigo.FAILURE, ex.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+            if (ex.getClass().equals(DataIntegrityViolationException.class)) {
+                return new ResponseEntity<>(new Respuesta(RespuestaCodigo.FAILURE, "No puede haber dos inventarios con el mismo SKU"), HttpStatus.CONFLICT);
+            }
+            return new ResponseEntity<>(new Respuesta(RespuestaCodigo.FAILURE, "Ha ocurrido un error en los grabados del inventario"), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -60,7 +64,7 @@ public class InventarioController {
             inventarioService.actualizarInventario(inventarioModificado);
             return new ResponseEntity<>(new Respuesta(RespuestaCodigo.OK, inventarioModificado), HttpStatus.OK);
         } catch (Exception ex) {
-            return new ResponseEntity<>(new Respuesta(RespuestaCodigo.FAILURE, ex.getMessage()), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new Respuesta(RespuestaCodigo.FAILURE, "Ha ocurrido un error al intentar actualizar el inventario"), HttpStatus.BAD_REQUEST);
         }
     }
 }
