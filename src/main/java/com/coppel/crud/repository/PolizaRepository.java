@@ -6,13 +6,17 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface PolizaRepository extends JpaRepository<Poliza, Integer> {
-    @Procedure
-    void actualizarPoliza(int idp, int eg, String s, int ca, String f);
+    List<Poliza> findByOrderByIdPolizaAsc();
 
     @Procedure("insert_poliza")
     void crearPoliza(int eg, String s, int ca, String f);
+
+    @Procedure
+    void actualizarPoliza(int idp, int eg, String s, int ca, String f);
 
     @Procedure
     void eliminarPoliza(int idp);
