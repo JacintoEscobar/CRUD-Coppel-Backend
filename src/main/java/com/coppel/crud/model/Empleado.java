@@ -11,7 +11,19 @@ import java.util.List;
 @Entity
 @Data
 @Table(name = "empleado")
-@NamedStoredProcedureQuery(name = "Empleado.nuevoEmpleado", procedureName = "insert_empleado", parameters = {@StoredProcedureParameter(mode = ParameterMode.IN, name = "nombre", type = String.class), @StoredProcedureParameter(mode = ParameterMode.IN, name = "apellido", type = String.class), @StoredProcedureParameter(mode = ParameterMode.IN, name = "puesto", type = String.class)})
+@NamedStoredProcedureQueries({
+        @NamedStoredProcedureQuery(name = "Empleado.crearEmpleado", procedureName = "insert_empleado", parameters = {
+                @StoredProcedureParameter(mode = ParameterMode.IN, name = "nombre", type = String.class),
+                @StoredProcedureParameter(mode = ParameterMode.IN, name = "apellido", type = String.class),
+                @StoredProcedureParameter(mode = ParameterMode.IN, name = "puesto", type = String.class)
+        }),
+        @NamedStoredProcedureQuery(name = "Empleado.actualizarEmpleado", procedureName = "update_empleado", parameters = {
+                @StoredProcedureParameter(mode = ParameterMode.IN, name = "ide", type = Integer.class),
+                @StoredProcedureParameter(mode = ParameterMode.IN, name = "n", type = String.class),
+                @StoredProcedureParameter(mode = ParameterMode.IN, name = "ap", type = String.class),
+                @StoredProcedureParameter(mode = ParameterMode.IN, name = "pu", type = String.class)
+        })
+})
 public class Empleado {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
