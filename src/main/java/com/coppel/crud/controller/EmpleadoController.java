@@ -43,7 +43,7 @@ public class EmpleadoController {
             empleadoService.crearEmpleado(nuevoEmpleado);
             return new ResponseEntity<>(new Respuesta(RespuestaCodigo.OK, nuevoEmpleado), HttpStatus.CREATED);
         } catch (Exception ex) {
-            return new ResponseEntity<>(new Respuesta(RespuestaCodigo.FAILURE, ex.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(new Respuesta(RespuestaCodigo.FAILURE, "Ha ocurrido un error en los grabados del empleado"), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -60,7 +60,7 @@ public class EmpleadoController {
             empleadoService.actualizarEmpleado(empleadoModificado);
             return new ResponseEntity<>(new Respuesta(RespuestaCodigo.OK, empleadoModificado), HttpStatus.OK);
         } catch (Exception ex) {
-            return new ResponseEntity<>(new Respuesta(RespuestaCodigo.FAILURE, ex.getMessage()), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new Respuesta(RespuestaCodigo.FAILURE, "Ha ocurrido un error al intentar actualizar el empleado"), HttpStatus.BAD_REQUEST);
         }
     }
 }
