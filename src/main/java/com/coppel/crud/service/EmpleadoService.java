@@ -23,4 +23,8 @@ public class EmpleadoService {
     public void actualizarEmpleado(Empleado empleadoModificado) {
         empleadoRepository.actualizarEmpleado(empleadoModificado.getIdEmpleado(), empleadoModificado.getNombre(), empleadoModificado.getApellido(), empleadoModificado.getPuesto());
     }
+
+    public Integer getLastEmpleadoId() {
+        return empleadoRepository.getLastEmpleadoId();
+    }
 }

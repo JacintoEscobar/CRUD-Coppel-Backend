@@ -44,6 +44,7 @@ public class EmpleadoController {
                 return new ResponseEntity<>(new Respuesta(RespuestaCodigo.FAILURE, errores), HttpStatus.BAD_REQUEST);
             }
             empleadoService.crearEmpleado(nuevoEmpleado);
+            nuevoEmpleado.setIdEmpleado(empleadoService.getLastEmpleadoId());
             return new ResponseEntity<>(new Respuesta(RespuestaCodigo.OK, nuevoEmpleado), HttpStatus.CREATED);
         } catch (Exception ex) {
             logger.error("Ocurrió un error al intentar crear el empleado");

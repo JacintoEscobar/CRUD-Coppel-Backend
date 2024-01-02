@@ -22,7 +22,8 @@ import java.util.List;
                 @StoredProcedureParameter(mode = ParameterMode.IN, name = "n", type = String.class),
                 @StoredProcedureParameter(mode = ParameterMode.IN, name = "ap", type = String.class),
                 @StoredProcedureParameter(mode = ParameterMode.IN, name = "pu", type = String.class)
-        })
+        }),
+        @NamedStoredProcedureQuery(name = "Empleado.getLastEmpleadoId", procedureName = "get_last_empleado_id")
 })
 public class Empleado {
     @Id
