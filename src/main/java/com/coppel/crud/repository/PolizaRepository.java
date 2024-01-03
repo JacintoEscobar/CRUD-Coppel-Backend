@@ -25,5 +25,5 @@ public interface PolizaRepository extends JpaRepository<Poliza, Integer> {
     Integer getLastPolizaId();
 
     @Procedure
-    void actualizarCamposPoliza(int idp, String nombre_e, String apellido_e, String s, int ca);
+    void actualizarCamposPoliza(int idp, int ide, String s, int ca);
 }

@@ -29,8 +29,7 @@ import lombok.Data;
         @NamedStoredProcedureQuery(name = "Poliza.getLastPolizaId", procedureName = "get_last_poliza_id"),
         @NamedStoredProcedureQuery(name = "Poliza.actualizarCamposPoliza", procedureName = "update_campos_poliza", parameters = {
                 @StoredProcedureParameter(mode = ParameterMode.IN, name = "idp", type = Integer.class),
-                @StoredProcedureParameter(mode = ParameterMode.IN, name = "nombre_e", type = String.class),
-                @StoredProcedureParameter(mode = ParameterMode.IN, name = "apellido_e", type = String.class),
+                @StoredProcedureParameter(mode = ParameterMode.IN, name = "ide", type = Integer.class),
                 @StoredProcedureParameter(mode = ParameterMode.IN, name = "s", type = String.class),
                 @StoredProcedureParameter(mode = ParameterMode.IN, name = "ca", type = Integer.class),
         })

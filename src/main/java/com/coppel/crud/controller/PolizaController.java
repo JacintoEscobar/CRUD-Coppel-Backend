@@ -93,7 +93,7 @@ public class PolizaController {
     }
 
     @PutMapping(value = "/actualizar-campos/{id_poliza}", consumes = "application/json")
-    public ResponseEntity<?> actualizarCamposPoliza(@PathVariable(name = "id_poliza") int idPoliza, @Valid @RequestBody Poliza polizaModificada) {
+    public ResponseEntity<?> actualizarCamposPoliza(@PathVariable(name = "id_poliza") int idPoliza, @RequestBody Poliza polizaModificada) {
         try {
             Poliza polizaExistente = polizaService.consultarPolizaById(idPoliza);
             if (polizaExistente == null) {
