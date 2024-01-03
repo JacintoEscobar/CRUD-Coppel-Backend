@@ -92,6 +92,22 @@ public class PolizaController {
         }
     }
 
+    @PutMapping(value = "/actualizar-campos/{id_poliza}", consumes = "application/json")
+    public ResponseEntity<?> actualizarCamposPoliza(@PathVariable(name = "id_poliza") int idPoliza, @Valid @RequestBody Poliza polizaModificada) {
+        try {
+            Poliza polizaExistente = polizaService.consultarPolizaById(idPoliza);
+            if (polizaExistente == null) {
+                return new ResponseEntity<>(new Respuesta(RespuestaCodigo.FAILURE, "No existe la póliza " + idPoliza), HttpStatus.NOT_FOUND);
+            }
+
+            polizaService.actualizarCamposPoliza(idPoliza, polizaModificada);
+            return new ResponseEntity<>(new Respuesta(RespuestaCodigo.OK, "Se actualizó correctamente la poliza " + idPoliza), HttpStatus.OK);
+        } catch (Exception ex) {
+            logger.error("Ocurrió un error al intentar actualizar la póliza");
+            return new ResponseEntity<>(new Respuesta(RespuestaCodigo.FAILURE, "Ha ocurrido un error al intentar actualizar la póliza"), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @DeleteMapping("/eliminar/{id_poliza}")
     public ResponseEntity<?> eliminarPoliza(@PathVariable(name = "id_poliza") int idPoliza) {
         try {

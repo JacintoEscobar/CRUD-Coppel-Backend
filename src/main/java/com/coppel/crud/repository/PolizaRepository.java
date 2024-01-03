@@ -23,4 +23,7 @@ public interface PolizaRepository extends JpaRepository<Poliza, Integer> {
 
     @Query(value = "SELECT get_last_poliza_id()", nativeQuery = true)
     Integer getLastPolizaId();
+
+    @Procedure
+    void actualizarCamposPoliza(int idp, String nombre_e, String apellido_e, String s, int ca);
 }

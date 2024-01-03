@@ -31,6 +31,10 @@ public class PolizaService {
         polizaRepository.actualizarPoliza(idPoliza, poliza.getEmpleado().getIdEmpleado(), poliza.getInventario().getSKU(), poliza.getCantidad(), poliza.getFecha());
     }
 
+    public void actualizarCamposPoliza(int idPoliza, Poliza poliza) {
+        polizaRepository.actualizarCamposPoliza(idPoliza, poliza.getEmpleado().getNombre(), poliza.getEmpleado().getApellido(), poliza.getInventario().getSKU(), poliza.getCantidad());
+    }
+
     public void eliminarPoliza(int idPoliza) {
         polizaRepository.eliminarPoliza(idPoliza);
     }
