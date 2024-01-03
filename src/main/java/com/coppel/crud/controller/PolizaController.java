@@ -48,7 +48,7 @@ public class PolizaController {
         }
     }
 
-    @PostMapping("/crear")
+    @PostMapping(value = "/crear", consumes = "application/json")
     public ResponseEntity<?> crearPoliza(@Valid @RequestBody Poliza nuevaPoliza, BindingResult validacion) {
         try {
             if (validacion.hasErrors()) {

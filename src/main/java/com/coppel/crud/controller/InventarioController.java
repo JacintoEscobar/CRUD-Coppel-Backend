@@ -34,7 +34,7 @@ public class InventarioController {
         return new ResponseEntity<>(new Respuesta(RespuestaCodigo.OK, inventarios), HttpStatus.OK);
     }
 
-    @PostMapping("/crear")
+    @PostMapping(value = "/crear", consumes = "application/json")
     public ResponseEntity<?> nuevoInventario(@Valid @RequestBody Inventario nuevoInventario, BindingResult validacion) {
         try {
             if (validacion.hasErrors()) {
